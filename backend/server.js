@@ -25,6 +25,7 @@ import analyticsRoutes   from './routes/analyticsRoutes.js'
 import notificationRoutes from './routes/notificationRoutes.js'
 
 dotenv.config()
+console.log('DEBUG CALLBACK URL:', process.env.GOOGLE_CALLBACK_URL)
 connectDB()
 
 const app = express()
