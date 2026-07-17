@@ -87,32 +87,32 @@ export default function RecruiterDashboard() {
   const totalApplicants = jobs.reduce((s, j) => s + (j.applicantCount || 0), 0)
 
   return (
-    <div className="section pt-8 md:pt-10">
+    <div className="section pt-4 md:pt-5">
       <div className="container-app px-4">
         
         {/* HERO SECTION: Updated Grid to fill left space */}
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center mb-12">
+        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6 items-center mb-6">
           
           {/* LEFT SIDE: Welcome Text + Stats Grid + CTA Buttons */}
-          <div className="flex flex-col space-y-8">
+          <div className="flex flex-col space-y-4">
             <div>
-              <h1 className="page-title">Welcome, {capitalize(user?.name?.split(' ')[0] || '')} 👋</h1>
-              <p className="page-subtitle">Manage your job postings and applicants</p>
+              <h1 className="page-title text-xl md:text-2xl">Welcome, {capitalize(user?.name?.split(' ')[0] || '')} 👋</h1>
+              <p className="page-subtitle text-xs md:text-sm">Manage your job postings and applicants</p>
             </div>
 
             {/* Stats Grid moved inside the left column */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3">
               <StatsCard icon={<HiOutlineBriefcase />}  label="Active jobs"      value={jobs.length}      detail={`${jobs.filter(j => j.isFeatured).length} featured`} color="primary" />
               <StatsCard icon={<HiOutlineUserGroup />}   label="Total applicants" value={totalApplicants}  detail="Across all postings" color="green" />
               <StatsCard icon={<HiOutlineEye />}         label="Total views"      value={jobs.reduce((s, j) => s + (j.views || 0), 0)} detail="Lifetime impressions" color="yellow" />
             </div>
 
             {/* Quick Actions to balance the layout */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <Link to="/post-job" className="btn btn-primary flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-3">
+              <Link to="/post-job" className="btn btn-primary btn-sm flex items-center gap-2">
                 <HiOutlinePlusCircle /> Post a job
               </Link>
-              <Link to="/profile" className="btn bg-surface-100 hover:bg-surface-200 dark:bg-surface-800 dark:hover:bg-surface-700 text-surface-900 dark:text-white border border-transparent dark:border-surface-700">
+              <Link to="/profile" className="btn btn-sm bg-surface-100 hover:bg-surface-200 dark:bg-surface-800 dark:hover:bg-surface-700 text-surface-900 dark:text-white border border-transparent dark:border-surface-700">
                 Company Profile
               </Link>
             </div>
@@ -127,21 +127,21 @@ export default function RecruiterDashboard() {
         {topCandidate && (
           <div className="relative overflow-hidden rounded-2xl border border-primary-100 dark:border-primary-900
                           bg-gradient-to-br from-primary-50 via-white to-white dark:from-primary-900/20 dark:via-surface-900 dark:to-surface-900
-                          p-5 md:p-6 mb-8 flex items-center gap-5 flex-wrap">
+                          p-3.5 md:p-4 mb-5 flex items-center gap-4 flex-wrap">
             <div className="absolute inset-0 bg-signature-grid opacity-30 dark:opacity-10 pointer-events-none" />
             <MatchRing percent={topCandidate.matchPercent} />
             <div className="relative flex-1 min-w-[200px]">
               <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400 mb-1">
                 <HiOutlineSparkles /> Top candidate spotlight
               </span>
-              <p className="font-display font-semibold text-lg text-surface-900 dark:text-white">
+              <p className="font-display font-semibold text-base text-surface-900 dark:text-white">
                 {topCandidate.applicant?.name}
               </p>
-              <p className="text-sm text-surface-500 dark:text-surface-400 flex items-center gap-1.5">
+              <p className="text-xs text-surface-500 dark:text-surface-400 flex items-center gap-1.5">
                 <HiOutlineBuildingOffice2 className="shrink-0" /> Applied to {topCandidate.jobTitle}
               </p>
               {topCandidate.applicant?.skills?.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mt-2">
+                <div className="flex flex-wrap gap-1.5 mt-1.5">
                   {topCandidate.applicant.skills.slice(0, 5).map(s => (
                     <span key={s} className="skill-tag flex items-center gap-1"><HiCheck className="text-[11px]" /> {s}</span>
                   ))}
@@ -156,10 +156,10 @@ export default function RecruiterDashboard() {
         )}
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6 border-b border-surface-200 dark:border-surface-800">
+        <div className="flex gap-2 mb-4 border-b border-surface-200 dark:border-surface-800">
           {tabs.map(tab => (
             <button key={tab} onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors flex items-center gap-1.5 ${
+              className={`px-3 py-2 text-sm font-medium border-b-2 -mb-px transition-colors flex items-center gap-1.5 ${
                 activeTab === tab ? 'border-primary-600 text-primary-600' : 'border-transparent text-surface-400'
               }`}>
               {tab === 'Analytics' && <HiOutlineChartBar />}
