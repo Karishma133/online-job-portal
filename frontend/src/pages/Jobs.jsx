@@ -25,7 +25,7 @@ function JobListRow({ job, active, onClick }) {
   return (
     <div
       onClick={onClick}
-      className={`p-4 rounded-xl border cursor-pointer transition-all duration-150 group relative
+      className={`p-3 rounded-xl border cursor-pointer transition-all duration-150 group relative
         ${active
           ? 'bg-primary-50 border-primary-300 dark:bg-primary-900/20 dark:border-primary-700'
           : 'bg-white border-surface-100 hover:border-primary-200 dark:bg-surface-900 dark:border-surface-800 dark:hover:border-primary-800'}`}
@@ -33,38 +33,40 @@ function JobListRow({ job, active, onClick }) {
       {user?.role === 'student' && (
         <button
           onClick={(e) => { e.stopPropagation(); toggleSave(job._id) }}
-          className="absolute top-3 right-3 text-surface-300 hover:text-primary-500 transition-colors z-10"
+          className="absolute top-2 right-2 text-surface-300 hover:text-primary-500 transition-colors z-10"
           aria-label="Save job"
         >
           {saved ? <HiBookmark className="text-primary-600" /> : <HiOutlineBookmark />}
         </button>
       )}
 
-      <div className="flex items-start gap-3">
-        <div className="w-10 h-10 rounded-lg bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center shrink-0 overflow-hidden">
+      <div className="flex items-start gap-2.5">
+        <div className="w-8 h-8 rounded-lg bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center shrink-0 overflow-hidden">
           {job.companyLogo
             ? <img src={job.companyLogo} alt={job.company} className="w-full h-full object-cover" />
-            : <HiOutlineBuildingOffice2 className="text-lg text-primary-500" />}
+            : <HiOutlineBuildingOffice2 className="text-base text-primary-500" />}
         </div>
         <div className="min-w-0 pr-5">
           <h3 className="font-display font-semibold text-sm text-surface-900 dark:text-white truncate group-hover:text-primary-600 dark:group-hover:text-primary-400">
             {job.title}
           </h3>
-          <p className="text-xs text-surface-400">{job.company}</p>
+          <p className="text-[11px] text-surface-400">{job.company}</p>
         </div>
       </div>
 
-      <div className="flex items-center gap-3 mt-3 text-[11px] text-surface-400">
+      <div className="flex items-center gap-3 mt-2 text-[10px] text-surface-400">
         <span className="flex items-center gap-1"><HiOutlineLocationMarker /> {job.location}</span>
         <span className="flex items-center gap-1"><HiOutlineClock /> {timeAgo(job.createdAt)}</span>
       </div>
 
-      <div className="flex items-center justify-between mt-3">
-        <span className="text-xs font-semibold text-surface-700 dark:text-surface-200">
+      <div className="flex items-center justify-between mt-2.5">
+        <span className="text-[11px] font-semibold text-surface-700 dark:text-surface-200">
           {formatSalary(job.salaryMin, job.salaryMax)}
         </span>
         {user?.role === 'student' && job.requiredSkills?.length > 0 && (
-          <SkillMatchBadge percent={match.percent} label={match.label} color={match.color} />
+          <div className="scale-90 origin-right">
+            <SkillMatchBadge percent={match.percent} label={match.label} color={match.color} />
+          </div>
         )}
       </div>
     </div>
@@ -88,13 +90,13 @@ function JobDetailPane({ job }) {
     <motion.div
       key={job._id}
       initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}
-      className="card h-full flex flex-col"
+      className="card h-full flex flex-col p-4"
     >
-      <div className="flex items-start justify-between gap-4 pb-6 border-b border-surface-100 dark:border-surface-800">
+      <div className="flex items-start justify-between gap-4 pb-4 border-b border-surface-100 dark:border-surface-800">
         <div className="min-w-0">
-          <span className="badge-green text-[11px]">Verified listing</span>
-          <h2 className="text-xl font-display font-bold text-surface-900 dark:text-white mt-3">{job.title}</h2>
-          <p className="text-primary-600 dark:text-primary-400 font-medium text-sm mt-1">
+          <span className="badge-green text-[10px] px-1.5 py-0.5">Verified listing</span>
+          <h2 className="text-lg font-display font-bold text-surface-900 dark:text-white mt-1.5">{job.title}</h2>
+          <p className="text-primary-600 dark:text-primary-400 font-medium text-xs mt-0.5">
             {job.company} · {job.location}
           </p>
         </div>
@@ -103,43 +105,43 @@ function JobDetailPane({ job }) {
         )}
       </div>
 
-      <div className="mt-6 space-y-6 flex-1">
+      <div className="mt-4 space-y-4 flex-1">
         <div>
-          <h4 className="text-xs font-bold uppercase tracking-wider text-surface-400 mb-2">Role overview</h4>
-          <p className="text-sm text-surface-500 dark:text-surface-400 leading-relaxed">
-            {truncate(job.description, 320)}
+          <h4 className="text-[10px] font-bold uppercase tracking-wider text-surface-400 mb-1.5">Role overview</h4>
+          <p className="text-xs text-surface-500 dark:text-surface-400 leading-relaxed">
+            {truncate(job.description, 280)}
           </p>
         </div>
 
         {job.requiredSkills?.length > 0 && (
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-surface-400 mb-2">Required skills</h4>
-            <div className="flex flex-wrap gap-1.5">
-              {job.requiredSkills.map((s) => <span key={s} className="skill-tag">{s}</span>)}
+            <h4 className="text-[10px] font-bold uppercase tracking-wider text-surface-400 mb-1.5">Required skills</h4>
+            <div className="flex flex-wrap gap-1">
+              {job.requiredSkills.map((s) => <span key={s} className="skill-tag text-[10px] px-1.5 py-0.5">{s}</span>)}
             </div>
           </div>
         )}
 
-        <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm">
+        <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs">
           <div>
-            <p className="text-xs text-surface-400">Salary</p>
+            <p className="text-[10px] text-surface-400">Salary</p>
             <p className="font-semibold text-surface-800 dark:text-surface-100">{formatSalary(job.salaryMin, job.salaryMax)}</p>
           </div>
           <div>
-            <p className="text-xs text-surface-400">Type</p>
+            <p className="text-[10px] text-surface-400">Type</p>
             <p className="font-semibold text-surface-800 dark:text-surface-100">{job.jobType}</p>
           </div>
           <div>
-            <p className="text-xs text-surface-400">Posted</p>
+            <p className="text-[10px] text-surface-400">Posted</p>
             <p className="font-semibold text-surface-800 dark:text-surface-100">{timeAgo(job.createdAt)}</p>
           </div>
         </div>
       </div>
 
-      <Link to={`/jobs/${job._id}`} className="btn btn-primary justify-center mt-6">
+      <Link to={`/jobs/${job._id}`} className="btn btn-primary btn-sm justify-center mt-4">
         View full details & apply <HiOutlineArrowRight />
       </Link>
-      <p className="text-center text-[11px] text-surface-400 mt-2">
+      <p className="text-center text-[10px] text-surface-400 mt-1.5">
         ⚡ Guaranteed response within 24 hours
       </p>
     </motion.div>
@@ -153,7 +155,6 @@ export default function Jobs() {
   const [showFilter, setShowFilter] = useState(false)
   const [selectedJob, setSelectedJob] = useState(null)
 
-  // Pick up ?keyword= & ?location= coming from the homepage search bar
   useEffect(() => {
     const kw = searchParams.get('keyword')
     const loc = searchParams.get('location')
@@ -162,7 +163,6 @@ export default function Jobs() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Keep the detail pane in sync with whichever job is first in the list
   useEffect(() => {
     if (jobs.length > 0 && !jobs.some(j => j._id === selectedJob?._id)) {
       setSelectedJob(jobs[0])
@@ -174,36 +174,40 @@ export default function Jobs() {
   const totalPages = Math.ceil(total / 10) || 1
 
   return (
-    <div className="section pt-8 md:pt-10 pb-10">
-      <div className="container-app px-4">
-        <div className="mb-6 md:mb-8 flex items-start justify-between flex-wrap gap-3">
-          <div>
-            <h1 className="page-title text-2xl md:text-3xl">Browse jobs</h1>
-            <p className="page-subtitle text-sm md:text-base">{total} open roles matching your search</p>
+    <div className="h-[calc(100vh-64px)] overflow-hidden flex flex-col pt-3 pb-1">
+      <div className="container-app px-4 flex flex-col h-full">
+        
+        {/* Header Section (Title & Search) */}
+        <div className="shrink-0">
+          <div className="mb-2 flex items-start justify-between flex-wrap gap-2">
+            <div>
+              <h1 className="page-title text-xl md:text-2xl">Browse jobs</h1>
+              <p className="page-subtitle text-xs md:text-sm">{total} open roles matching your search</p>
+            </div>
           </div>
-        </div>
 
-        {/* Search bar */}
-        <div className="flex gap-2 mb-6 p-1.5 rounded-2xl bg-white dark:bg-surface-900 border border-surface-100 dark:border-surface-800 shadow-card">
-          <div className="relative flex-1">
-            <HiOutlineSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-surface-400 text-lg" />
-            <input
-              type="text"
-              className="w-full pl-11 py-2.5 bg-transparent text-sm outline-none text-surface-800 dark:text-surface-100 placeholder-surface-400"
-              placeholder="Search by job title, company..."
-              value={filters.keyword}
-              onChange={(e) => updateFilter('keyword', e.target.value)}
-            />
+          {/* Search bar */}
+          <div className="flex gap-2 mb-3 p-1 rounded-xl bg-white dark:bg-surface-900 border border-surface-100 dark:border-surface-800 shadow-card">
+            <div className="relative flex-1">
+              <HiOutlineSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400 text-base" />
+              <input
+                type="text"
+                className="w-full pl-9 py-1.5 bg-transparent text-xs md:text-sm outline-none text-surface-800 dark:text-surface-100 placeholder-surface-400"
+                placeholder="Search by job title, company..."
+                value={filters.keyword}
+                onChange={(e) => updateFilter('keyword', e.target.value)}
+              />
+            </div>
+            <button
+              onClick={() => setShowFilter(v => !v)}
+              className="md:hidden btn btn-outline px-2.5 py-1.5 relative text-sm"
+            >
+              <HiOutlineAdjustments className="text-lg" />
+              {Object.values(filters).some(v => Array.isArray(v) ? v.length : v && v !== 'newest') && (
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-primary-600 rounded-full" />
+              )}
+            </button>
           </div>
-          <button
-            onClick={() => setShowFilter(v => !v)}
-            className="md:hidden btn btn-outline px-3 py-2.5 relative"
-          >
-            <HiOutlineAdjustments className="text-xl" />
-            {Object.values(filters).some(v => Array.isArray(v) ? v.length : v && v !== 'newest') && (
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-primary-600 rounded-full" />
-            )}
-          </button>
         </div>
 
         {/* Mobile filter drawer */}
@@ -211,11 +215,11 @@ export default function Jobs() {
           {showFilter && (
             <motion.div
               initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
-              className="md:hidden mb-6 overflow-hidden"
+              className="md:hidden mb-3 overflow-hidden shrink-0"
             >
               <div className="relative">
-                <button onClick={() => setShowFilter(false)} className="absolute top-4 right-4 z-10 text-surface-400 hover:text-surface-600">
-                  <HiOutlineX className="text-xl" />
+                <button onClick={() => setShowFilter(false)} className="absolute top-3 right-3 z-10 text-surface-400 hover:text-surface-600">
+                  <HiOutlineX className="text-lg" />
                 </button>
                 <JobFilter />
               </div>
@@ -223,23 +227,25 @@ export default function Jobs() {
           )}
         </AnimatePresence>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr_1.2fr] gap-6">
+        {/* Grid Container */}
+        <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr_1.2fr] gap-4 flex-1 min-h-0 pb-1">
+          
           {/* Filters */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:block h-full overflow-y-auto scrollbar-thin pr-1.5">
             <JobFilter />
           </div>
 
           {/* Scrollable list */}
-          <div className="lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto scrollbar-thin lg:pr-1 space-y-3">
+          <div className="h-full overflow-y-auto scrollbar-thin lg:pr-1 space-y-2.5 pb-2">
             {loading && <JobRowSkeletonList count={6} />}
 
-            {error && <div className="card text-center py-12 text-danger-500 text-sm">{error}</div>}
+            {error && <div className="card text-center py-8 text-danger-500 text-sm">{error}</div>}
 
             {!loading && !error && jobs.length === 0 && (
-              <div className="card text-center py-16">
-                <HiOutlineEmojiSad className="text-4xl text-surface-300 mx-auto mb-3" />
-                <p className="text-surface-500 font-medium">No jobs match your filters</p>
-                <p className="text-surface-400 text-sm mt-1">Try widening your search criteria</p>
+              <div className="card text-center py-12">
+                <HiOutlineEmojiSad className="text-3xl text-surface-300 mx-auto mb-2" />
+                <p className="text-surface-500 font-medium text-sm">No jobs match your filters</p>
+                <p className="text-surface-400 text-xs mt-1">Try widening your search criteria</p>
               </div>
             )}
 
@@ -253,18 +259,18 @@ export default function Jobs() {
             ))}
 
             {!loading && !error && jobs.length > 0 && totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2 pt-4">
+              <div className="flex items-center justify-center gap-2 pt-2 pb-1">
                 <button disabled={page === 1} onClick={() => setPage(p => p - 1)}
-                  className="btn btn-ghost btn-sm disabled:opacity-30">Previous</button>
-                <span className="text-sm text-surface-500 px-3">Page {page} of {totalPages}</span>
+                  className="btn btn-ghost btn-sm text-xs disabled:opacity-30">Previous</button>
+                <span className="text-xs text-surface-500 px-2">Page {page} of {totalPages}</span>
                 <button disabled={page === totalPages} onClick={() => setPage(p => p + 1)}
-                  className="btn btn-ghost btn-sm disabled:opacity-30">Next</button>
+                  className="btn btn-ghost btn-sm text-xs disabled:opacity-30">Next</button>
               </div>
             )}
           </div>
 
           {/* Detail pane */}
-          <div className="hidden lg:block lg:sticky lg:top-24 lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto scrollbar-thin">
+          <div className="hidden lg:block h-full overflow-y-auto scrollbar-thin pb-2">
             <JobDetailPane job={selectedJob} />
           </div>
         </div>
