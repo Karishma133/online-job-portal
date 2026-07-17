@@ -94,13 +94,13 @@ export default function JobDetail() {
   const isStudent = user?.role === 'student'
 
   return (
-    <div className="section pt-6 md:pt-10">
+    <div className="section pt-4 md:pt-5">
       <div className="container-app max-w-4xl px-4">
-        <Link to="/jobs" className="inline-flex items-center gap-1.5 text-sm text-surface-500 hover:text-primary-600 mb-5">
+        <Link to="/jobs" className="inline-flex items-center gap-1.5 text-sm text-surface-500 hover:text-primary-600 mb-3">
           <HiOutlineArrowLeft /> Back to jobs
         </Link>
 
-        <div className="card">
+        <div className="card !p-4 md:!p-5">
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div className="flex items-start gap-3 md:gap-4">
@@ -133,14 +133,14 @@ export default function JobDetail() {
 
           {/* Social proof */}
           {job.applicationCount > 0 && (
-            <div className="mt-4 text-xs text-surface-400 flex items-center gap-1.5">
+            <div className="mt-2 text-xs text-surface-400 flex items-center gap-1.5">
               <span className="w-2 h-2 bg-accent-500 rounded-full animate-pulse" />
               {job.applicationCount} people have applied · {job.views} views
             </div>
           )}
 
           {/* Tabs */}
-          <div className="flex items-center gap-0 mt-6 overflow-x-auto scrollbar-hide border-b border-surface-100 dark:border-surface-800 -mx-6 px-6">
+          <div className="flex items-center gap-0 mt-3 overflow-x-auto scrollbar-hide border-b border-surface-100 dark:border-surface-800 -mx-4 md:-mx-5 px-4 md:px-5">
             {TABS.map(tab => (
               <button key={tab.id} onClick={() => setActiveTab(tab.id)}
                 className={`px-3 py-2.5 text-xs md:text-sm font-medium whitespace-nowrap border-b-2 -mb-px transition-colors ${
@@ -154,50 +154,52 @@ export default function JobDetail() {
           {/* Tab Content */}
           {activeTab === 'overview' && (
             <>
-              <div className="mt-5">
-                <h2 className="font-display font-semibold text-surface-900 dark:text-white mb-2">About the role</h2>
-                <p className="text-surface-600 dark:text-surface-300 text-sm leading-relaxed whitespace-pre-line">{job.description}</p>
+              <div className="mt-3">
+                <h2 className="font-display font-semibold text-surface-900 dark:text-white mb-1.5 text-sm md:text-base">About the role</h2>
+                <p className="text-surface-600 dark:text-surface-300 text-xs md:text-sm leading-snug whitespace-pre-line line-clamp-4">{job.description}</p>
               </div>
               {job.responsibilities?.length > 0 && (
-                <div className="mt-5">
-                  <h2 className="font-display font-semibold text-surface-900 dark:text-white mb-2">Responsibilities</h2>
-                  <ul className="space-y-1.5">
+                <div className="mt-3">
+                  <h2 className="font-display font-semibold text-surface-900 dark:text-white mb-1.5 text-sm md:text-base">Responsibilities</h2>
+                  <ul className="space-y-1">
                     {job.responsibilities.map((r, i) => (
-                      <li key={i} className="text-surface-600 dark:text-surface-300 text-sm flex gap-2">
+                      <li key={i} className="text-surface-600 dark:text-surface-300 text-xs md:text-sm flex gap-2">
                         <span className="text-primary-500">•</span> {r}
                       </li>
                     ))}
                   </ul>
                 </div>
               )}
-              {job.benefits?.length > 0 && (
-                <div className="mt-5">
-                  <h2 className="font-display font-semibold text-surface-900 dark:text-white mb-2">Benefits</h2>
-                  <div className="flex flex-wrap gap-2">
-                    {job.benefits.map((b, i) => (
-                      <span key={i} className="badge-green text-xs">{b}</span>
+              <div className="mt-3 grid sm:grid-cols-2 gap-3">
+                <div>
+                  <h2 className="font-display font-semibold text-surface-900 dark:text-white mb-1.5 text-sm md:text-base">Required skills</h2>
+                  <div className="flex flex-wrap gap-1.5">
+                    {job.requiredSkills?.map(s => (
+                      <span key={s} className={`skill-tag ${match.matched?.includes(s) ? '!bg-accent-400/10 !text-accent-600 !border-accent-300' : ''}`}>{s}</span>
                     ))}
                   </div>
                 </div>
-              )}
-              <div className="mt-5">
-                <h2 className="font-display font-semibold text-surface-900 dark:text-white mb-2">Required skills</h2>
-                <div className="flex flex-wrap gap-2">
-                  {job.requiredSkills?.map(s => (
-                    <span key={s} className={`skill-tag ${match.matched?.includes(s) ? '!bg-accent-400/10 !text-accent-600 !border-accent-300' : ''}`}>{s}</span>
-                  ))}
-                </div>
+                {job.benefits?.length > 0 && (
+                  <div>
+                    <h2 className="font-display font-semibold text-surface-900 dark:text-white mb-1.5 text-sm md:text-base">Benefits</h2>
+                    <div className="flex flex-wrap gap-1.5">
+                      {job.benefits.map((b, i) => (
+                        <span key={i} className="badge-green text-xs">{b}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
               {job.niceToHaveSkills?.length > 0 && (
-                <div className="mt-4">
-                  <h2 className="font-display font-semibold text-surface-900 dark:text-white mb-2">Nice to have</h2>
-                  <div className="flex flex-wrap gap-2">
+                <div className="mt-3">
+                  <h2 className="font-display font-semibold text-surface-900 dark:text-white mb-1.5 text-sm md:text-base">Nice to have</h2>
+                  <div className="flex flex-wrap gap-1.5">
                     {job.niceToHaveSkills.map(s => <span key={s} className="badge-gray text-xs">{s}</span>)}
                   </div>
                 </div>
               )}
               {isStudent && match.missing?.length > 0 && (
-                <div className="mt-4 p-3 rounded-xl bg-warn-400/10 text-sm text-surface-700 dark:text-surface-300">
+                <div className="mt-3 p-2.5 rounded-xl bg-warn-400/10 text-xs md:text-sm text-surface-700 dark:text-surface-300">
                   Missing: <span className="font-semibold">{match.missing.join(', ')}</span>
                 </div>
               )}
@@ -229,7 +231,7 @@ export default function JobDetail() {
           {activeTab === 'reviews'    && <CompanyReviews company={job.company} />}
 
           {/* Apply button */}
-          <div className="mt-6 pt-5 border-t border-surface-100 dark:border-surface-800">
+          <div className="mt-4 pt-3 border-t border-surface-100 dark:border-surface-800">
             {isStudent && (
               applied ? (
                 <div className="btn bg-accent-400/15 text-accent-600 w-full justify-center cursor-default">
