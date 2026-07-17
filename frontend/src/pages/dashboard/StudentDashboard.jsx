@@ -63,21 +63,21 @@ export default function StudentDashboard() {
   }
 
   return (
-    <div className="section pt-10">
+    <div className="section pt-4 md:pt-5">
       <div className="container-app">
         
         {/* HERO SECTION: Updated Grid to fill left space */}
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center mb-12">
+        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6 items-center mb-6">
           
           {/* LEFT SIDE: Welcome Text + Stats Grid + CTA Buttons */}
-          <div className="flex flex-col space-y-8">
+          <div className="flex flex-col space-y-4">
             <div>
-              <h1 className="page-title">Welcome back, {capitalize(user?.name?.split(' ')[0] || '')} 👋</h1>
-              <p className="page-subtitle">Here's where things stand with your job search</p>
+              <h1 className="page-title text-xl md:text-2xl">Welcome back, {capitalize(user?.name?.split(' ')[0] || '')} 👋</h1>
+              <p className="page-subtitle text-xs md:text-sm">Here's where things stand with your job search</p>
             </div>
 
             {/* Stats Grid moved inside the left column */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3">
               <StatsCard icon={<HiOutlineBriefcase />}  label="Applications" value={stats.total}     color="primary" />
               <StatsCard icon={<HiOutlineClock />}       label="Pending"      value={stats.pending}   color="yellow" />
               <StatsCard icon={<HiOutlineTrendingUp />}   label="Interviews"   value={stats.interview} color="green" />
@@ -85,11 +85,11 @@ export default function StudentDashboard() {
             </div>
 
             {/* Quick Actions to balance the layout */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <Link to="/jobs" className="btn btn-primary flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-3">
+              <Link to="/jobs" className="btn btn-primary btn-sm flex items-center gap-2">
                 Explore Jobs <HiOutlineArrowRight />
               </Link>
-              <Link to="/profile" className="btn bg-surface-100 hover:bg-surface-200 dark:bg-surface-800 dark:hover:bg-surface-700 text-surface-900 dark:text-white border border-transparent dark:border-surface-700">
+              <Link to="/profile" className="btn btn-sm bg-surface-100 hover:bg-surface-200 dark:bg-surface-800 dark:hover:bg-surface-700 text-surface-900 dark:text-white border border-transparent dark:border-surface-700">
                 Update Profile
               </Link>
             </div>
@@ -104,21 +104,21 @@ export default function StudentDashboard() {
         {bestMatch && (
           <div className="relative overflow-hidden rounded-2xl border border-primary-100 dark:border-primary-900
                           bg-gradient-to-br from-primary-50 via-white to-white dark:from-primary-900/20 dark:via-surface-900 dark:to-surface-900
-                          p-5 md:p-6 mb-10 flex items-center gap-5 flex-wrap">
+                          p-3.5 md:p-4 mb-5 flex items-center gap-4 flex-wrap">
             <div className="absolute inset-0 bg-signature-grid opacity-30 dark:opacity-10 pointer-events-none" />
             <MatchRing percent={bestMatch.matchPercent} />
             <div className="relative flex-1 min-w-[200px]">
               <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400 mb-1">
                 <HiOutlineSparkles /> Best match for you
               </span>
-              <p className="font-display font-semibold text-lg text-surface-900 dark:text-white">
+              <p className="font-display font-semibold text-base text-surface-900 dark:text-white">
                 {bestMatch.title}
               </p>
-              <p className="text-sm text-surface-500 dark:text-surface-400 flex items-center gap-1.5">
+              <p className="text-xs text-surface-500 dark:text-surface-400 flex items-center gap-1.5">
                 <HiOutlineBuildingOffice2 className="shrink-0" /> {bestMatch.company} · {formatSalary(bestMatch.salaryMin, bestMatch.salaryMax)}
               </p>
               {bestMatch.requiredSkills?.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mt-2">
+                <div className="flex flex-wrap gap-1.5 mt-1.5">
                   {bestMatch.requiredSkills.slice(0, 5).map(s => {
                     const hasSkill = user?.skills?.some(us => us.toLowerCase() === s.toLowerCase())
                     return hasSkill ? (
@@ -138,16 +138,16 @@ export default function StudentDashboard() {
           </div>
         )}
 
-        <div className="grid lg:grid-cols-[1fr_320px] gap-6 mb-10">
+        <div className="grid lg:grid-cols-[1fr_320px] gap-4 mb-5">
           <RecommendedJobs />
-          <div className="space-y-5">
+          <div className="space-y-3">
             <LiveJobAlert />
             <ReferralSystem />
           </div>
         </div>
 
         <div>
-          <h2 className="font-display font-semibold text-xl text-surface-900 dark:text-white mb-4">
+          <h2 className="font-display font-semibold text-lg text-surface-900 dark:text-white mb-2.5">
             Application tracker
           </h2>
           {loading ? <Loader /> : <ApplicationTracker applications={applications} />}
