@@ -83,25 +83,25 @@ export default function Profile() {
   const removeProject = (i) => set('projects', form.projects.filter((_, idx) => idx !== i))
 
   return (
-    <div className="section pt-8">
+    <div className="section pt-4 md:pt-5">
       <div className="container-app max-w-4xl px-4">
-        <div className="mb-6 flex items-start justify-between flex-wrap gap-4">
+        <div className="mb-3 flex items-start justify-between flex-wrap gap-3">
           <div>
-            <h1 className="page-title">My Profile</h1>
-            <p className="page-subtitle">Keep this updated to get better job matches</p>
+            <h1 className="page-title text-xl md:text-2xl">My Profile</h1>
+            <p className="page-subtitle text-xs md:text-sm">Keep this updated to get better job matches</p>
           </div>
-          <button onClick={handleSave} disabled={saving} className="btn btn-primary">
+          <button onClick={handleSave} disabled={saving} className="btn btn-primary btn-sm">
             {saving ? 'Saving...' : 'Save all changes'}
           </button>
         </div>
 
-        <div className="grid md:grid-cols-[1fr_280px] gap-6">
+        <div className="grid md:grid-cols-[1fr_260px] gap-4">
           <div className="space-y-0">
             {/* Avatar + name header */}
-            <div className="card mb-4">
-              <div className="flex items-center gap-4">
+            <div className="card !p-3 mb-3">
+              <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-20 h-20 rounded-full bg-primary-600 text-white flex items-center justify-center text-xl font-semibold overflow-hidden">
+                  <div className="w-14 h-14 rounded-full bg-primary-600 text-white flex items-center justify-center text-lg font-semibold overflow-hidden">
                     {user?.avatar
                       ? <img src={user.avatar} alt="" className="w-full h-full object-cover" />
                       : getInitials(user?.name)
@@ -113,18 +113,18 @@ export default function Profile() {
                   </label>
                 </div>
                 <div>
-                  <p className="font-semibold text-surface-900 dark:text-white text-lg">{user?.name}</p>
-                  <p className="text-sm text-surface-400">{user?.email}</p>
-                  <span className="badge-primary text-xs mt-1">{user?.role}</span>
+                  <p className="font-semibold text-surface-900 dark:text-white text-base">{user?.name}</p>
+                  <p className="text-xs text-surface-400">{user?.email}</p>
+                  <span className="badge-primary text-xs mt-0.5">{user?.role}</span>
                 </div>
               </div>
             </div>
 
             {/* Tabs */}
-            <div className="flex gap-1 overflow-x-auto scrollbar-hide border-b border-surface-200 dark:border-surface-800 mb-4">
+            <div className="flex gap-1 overflow-x-auto scrollbar-hide border-b border-surface-200 dark:border-surface-800 mb-3">
               {tabs.map(tab => (
                 <button key={tab} onClick={() => setActiveTab(tab)}
-                  className={`px-3 py-2 text-xs font-medium whitespace-nowrap border-b-2 -mb-px transition-colors ${
+                  className={`px-2.5 py-1.5 text-xs font-medium whitespace-nowrap border-b-2 -mb-px transition-colors ${
                     activeTab === tab
                       ? 'border-primary-600 text-primary-600'
                       : 'border-transparent text-surface-400 hover:text-surface-600'
@@ -134,8 +134,8 @@ export default function Profile() {
 
             {/* Basic Info */}
             {activeTab === 'Basic Info' && (
-              <div className="card space-y-4">
-                <div className="grid sm:grid-cols-2 gap-4">
+              <div className="card !p-4 space-y-3">
+                <div className="grid sm:grid-cols-2 gap-3">
                   <div>
                     <label className="label">Full name</label>
                     <input className="input" value={form.name} onChange={e => set('name', e.target.value)} />
@@ -148,10 +148,10 @@ export default function Profile() {
                 </div>
                 <div>
                   <label className="label">Bio</label>
-                  <textarea rows={3} className="input" placeholder="Tell recruiters about yourself..."
+                  <textarea rows={2} className="input" placeholder="Tell recruiters about yourself..."
                     value={form.bio} onChange={e => set('bio', e.target.value)} />
                 </div>
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid sm:grid-cols-2 gap-3">
                   <div>
                     <label className="label"><HiOutlineGlobe className="inline mr-1" />Location</label>
                     <input className="input" placeholder="Delhi, India" value={form.location} onChange={e => set('location', e.target.value)} />
@@ -354,8 +354,8 @@ export default function Profile() {
               </div>
             )}
 
-            <div className="mt-4">
-              <button onClick={handleSave} disabled={saving} className="btn btn-primary w-full justify-center">
+            <div className="mt-3">
+              <button onClick={handleSave} disabled={saving} className="btn btn-primary btn-sm w-full justify-center">
                 {saving ? 'Saving...' : 'Save changes'}
               </button>
             </div>
