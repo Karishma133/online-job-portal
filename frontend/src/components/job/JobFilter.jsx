@@ -61,7 +61,7 @@ export default function JobFilter() {
     filters.jobType || filters.salary || filters.category
 
   return (
-    <aside className="card sticky top-20 h-fit space-y-5">
+    <aside className="card !p-5 sticky top-24 lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto scrollbar-thin space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="font-display font-semibold text-surface-900 dark:text-white flex items-center gap-2">
           <HiOutlineFilter className="text-primary-500" /> Filters
@@ -76,7 +76,7 @@ export default function JobFilter() {
 
       {/* Skills */}
       <div>
-        <label className="label">Skills</label>
+        <label className="label !mb-1">Skills</label>
         <Select
           isMulti
           options={skillOptions}
@@ -90,10 +90,10 @@ export default function JobFilter() {
 
       {/* Location */}
       <div>
-        <label className="label">Location</label>
+        <label className="label !mb-1">Location</label>
         <input
           type="text"
-          className="input"
+          className="input !py-2"
           placeholder="City or 'Remote'"
           value={filters.location || ''}
           onChange={(e) => updateFilter('location', e.target.value)}
@@ -102,8 +102,8 @@ export default function JobFilter() {
 
       {/* Category */}
       <div>
-        <label className="label">Category</label>
-        <select className="input" value={filters.category || ''}
+        <label className="label !mb-1">Category</label>
+        <select className="input !py-2" value={filters.category || ''}
           onChange={(e) => updateFilter('category', e.target.value)}>
           <option value="">All categories</option>
           {JOB_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -112,12 +112,12 @@ export default function JobFilter() {
 
       {/* Job Type */}
       <div>
-        <label className="label">Job Type</label>
-        <div className="flex flex-wrap gap-2">
+        <label className="label !mb-1">Job Type</label>
+        <div className="grid grid-cols-2 gap-1.5">
           {JOB_TYPES.map((type) => (
             <button key={type}
               onClick={() => updateFilter('jobType', filters.jobType === type ? '' : type)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
                 filters.jobType === type
                   ? 'bg-primary-600 border-primary-600 text-white'
                   : 'border-surface-200 dark:border-surface-700 text-surface-600 dark:text-surface-400 hover:border-primary-300'
@@ -130,8 +130,8 @@ export default function JobFilter() {
 
       {/* Salary */}
       <div>
-        <label className="label">Salary Range</label>
-        <select className="input" value={filters.salary || ''}
+        <label className="label !mb-1">Salary Range</label>
+        <select className="input !py-2" value={filters.salary || ''}
           onChange={(e) => updateFilter('salary', e.target.value)}>
           {SALARY_RANGES.map(r => <option key={r.label} value={r.value}>{r.label}</option>)}
         </select>
@@ -139,8 +139,8 @@ export default function JobFilter() {
 
       {/* Sort */}
       <div>
-        <label className="label">Sort by</label>
-        <select className="input" value={filters.sortBy || 'newest'}
+        <label className="label !mb-1">Sort by</label>
+        <select className="input !py-2" value={filters.sortBy || 'newest'}
           onChange={(e) => updateFilter('sortBy', e.target.value)}>
           <option value="newest">Newest first</option>
           <option value="salary-high">Salary: High to Low</option>
