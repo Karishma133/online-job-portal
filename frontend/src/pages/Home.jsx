@@ -75,7 +75,7 @@ function MatchCard() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.2 }}
-      className="relative w-full max-w-[420px]"
+      className="relative w-full max-w-[260px]"
     >
       <div className="rounded-3xl overflow-hidden shadow-elevated border border-surface-100 dark:border-surface-800 aspect-[4/5]">
         <img
@@ -91,14 +91,25 @@ function MatchCard() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4, delay: 0.6 }}
-        className="card !p-4 absolute -bottom-6 -left-6 w-[240px] shadow-elevated border-surface-100 dark:border-surface-800"
+        className="card !p-3 absolute -bottom-4 -left-4 w-[210px] shadow-elevated border-surface-100 dark:border-surface-800"
       >
-        <div className="flex items-start justify-between gap-2 mb-3">
+        <div className="flex items-start justify-between gap-2 mb-2">
           <div>
-            <p className="font-display font-semibold text-sm text-surface-900 dark:text-white leading-tight">{demoJob.title}</p>
-            <p className="text-[11px] text-surface-400 mt-0.5">{demoJob.company}</p>
+            <p className="font-display font-semibold text-xs text-surface-900 dark:text-white leading-tight">{demoJob.title}</p>
+            <p className="text-[10px] text-surface-400 mt-0.5">{demoJob.company}</p>
           </div>
-          <MatchRing percent={demoJob.percent} />
+          <div className="relative w-16 h-16 shrink-0">
+            <div
+              className="absolute inset-0 rounded-full"
+              style={{
+                background: `conic-gradient(#234ddb ${demoJob.percent * 3.6}deg, #e2e8f0 ${demoJob.percent * 3.6}deg)`,
+              }}
+            />
+            <div className="absolute inset-[5px] rounded-full bg-white dark:bg-surface-900 flex flex-col items-center justify-center">
+              <span className="font-mono font-bold text-sm text-primary-700 dark:text-primary-300 tnum">{demoJob.percent}%</span>
+              <span className="text-[7px] uppercase tracking-wide text-surface-400">match</span>
+            </div>
+          </div>
         </div>
         <div className="flex flex-wrap gap-1.5">
           {demoJob.matched.slice(0, 2).map((s) => (
@@ -114,7 +125,7 @@ function MatchCard() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4, delay: 0.85 }}
-        className="card !p-3 !rounded-xl absolute -top-5 -right-5 flex items-center gap-2 shadow-elevated border-surface-100 dark:border-surface-800"
+        className="card !p-2.5 !rounded-xl absolute -top-4 -right-4 flex items-center gap-2 shadow-elevated border-surface-100 dark:border-surface-800"
       >
         <span className="w-7 h-7 rounded-full bg-accent-400/15 text-accent-600 flex items-center justify-center text-sm shrink-0">
           <HiCheck />
@@ -150,21 +161,21 @@ export default function Home() {
         <div className="hidden dark:block absolute top-24 left-1/2 -translate-x-1/2 w-[600px] h-[600px]
                         bg-primary-600/10 blur-[130px] rounded-full pointer-events-none" />
 
-        <div className="container-app px-4 pt-16 md:pt-24 pb-20 md:pb-28 relative z-10">
-          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-14 items-center">
+        <div className="container-app px-4 pt-8 md:pt-10 pb-8 md:pb-10 relative z-10">
+          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
             {/* Copy */}
             <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <span className="badge-primary mb-5 text-xs md:text-sm">
+              <span className="badge-primary mb-3 text-xs md:text-sm">
                 <HiOutlineSparkles /> Skill-matched job search
               </span>
 
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-semibold text-surface-900 dark:text-white
-                             tracking-tight leading-[1.05]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-semibold text-surface-900 dark:text-white
+                             tracking-tight leading-[1.1]">
                 Stop guessing if{' '}
                 <span className="text-gradient">you're qualified.</span>
               </h1>
 
-              <p className="text-surface-500 dark:text-surface-400 text-base md:text-lg mt-5 max-w-lg leading-relaxed">
+              <p className="text-surface-500 dark:text-surface-400 text-sm md:text-base mt-3 max-w-lg leading-relaxed">
                 SkillMatch scores every job against your actual profile — not keywords —
                 so you know exactly where you stand before you hit apply.
               </p>
@@ -172,7 +183,7 @@ export default function Home() {
               {/* Unified search bar */}
               <form
                 onSubmit={handleSearch}
-                className="w-full max-w-xl mt-8 p-2 rounded-2xl bg-white dark:bg-surface-900/70 dark:backdrop-blur-xl
+                className="w-full max-w-xl mt-5 p-2 rounded-2xl bg-white dark:bg-surface-900/70 dark:backdrop-blur-xl
                           border border-surface-200 dark:border-surface-800 shadow-card
                           flex flex-col sm:flex-row gap-2"
               >
@@ -197,7 +208,7 @@ export default function Home() {
                 </button>
               </form>
 
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-3 text-xs text-surface-400">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-2.5 text-xs text-surface-400">
                 <span>Trending:</span>
                 {trending.map((t) => (
                   <button
@@ -210,7 +221,7 @@ export default function Home() {
                 ))}
               </div>
 
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-5">
                 <Link to="/register" className="btn btn-primary btn-lg justify-center">
                   Get matched <HiOutlineArrowRight />
                 </Link>
@@ -225,12 +236,12 @@ export default function Home() {
                 </button>
               </div>
 
-              <p className="text-xs text-surface-400 mt-4">Free forever for students · No credit card needed</p>
+              <p className="text-xs text-surface-400 mt-3">Free forever for students · No credit card needed</p>
 
               {/* Stats */}
               <motion.div
                 initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}
-                className="flex gap-8 mt-10 pt-8 border-t border-surface-200 dark:border-surface-800"
+                className="flex gap-8 mt-6 pt-5 border-t border-surface-200 dark:border-surface-800"
               >
                 {stats.map((s) => (
                   <div key={s.label}>
