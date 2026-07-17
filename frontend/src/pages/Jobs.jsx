@@ -230,7 +230,7 @@ export default function Jobs() {
           </div>
 
           {/* Scrollable list */}
-          <div className="lg:max-h-[calc(100vh-220px)] lg:overflow-y-auto lg:pr-1 space-y-3">
+          <div className="lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto scrollbar-thin lg:pr-1 space-y-3">
             {loading && <JobRowSkeletonList count={6} />}
 
             {error && <div className="card text-center py-12 text-danger-500 text-sm">{error}</div>}
@@ -264,7 +264,7 @@ export default function Jobs() {
           </div>
 
           {/* Detail pane */}
-          <div className="hidden lg:block lg:sticky lg:top-24 lg:max-h-[calc(100vh-220px)]">
+          <div className="hidden lg:block lg:sticky lg:top-24 lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto scrollbar-thin">
             <JobDetailPane job={selectedJob} />
           </div>
         </div>
